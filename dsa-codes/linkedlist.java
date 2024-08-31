@@ -118,27 +118,60 @@ public class linkedlist {
 //        key not found
         return -1;
     }
+    //   Q --> Iteratively searching a key using recursion
+    public int helper(Node head, int key) {
+        if (head == null) {
+            return -1;
+        }
+        if (head.data == key){
+            return 0;
+        }
+        int idx = helper(head.next, key);
+        if (idx == -1) {
+            return -1;
+        }
+        return idx + 1;
+    }
+    public int recSearch(int key){
+        return helper(head,key);
+    }
+
+    //  Q --> Find and remove Nth node from end
+    public void deleteNthNodefromend(int n) {
+//        calculate size
+        int sz = 0;
+        Node temp = head;
+        while (temp != null) {
+            temp = temp.next;
+            sz++;
+        }
+        if (n == sz) {
+            head = head.next;   // remove first
+            return;
+        }
+//        sz-1
+        int i = 1;
+        int iToFind = sz - n;
+        Node prev = head;
+        while (i < iToFind) {
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next;
+        return;
+    }
 
     public static void main (String args[]){
+        public static void main (String args[]){
             linkedlist ll = new linkedlist();
-            /*ll.print();*/
-            ll.addFirst(3);
+            ll.addFirst(2);
             ll.addFirst(1);
             ll.addLast(4);
             ll.addLast(5);
+            ll.add(2,3);
             ll.print();
-
-            ll.add(1, 2);
+            ll.deleteNthNodefromend(3);
             ll.print();
-
-            ll.removeFirst();
-            ll.print();
-
-            ll.removeLast();
-            ll.print();
-            System.out.println(ll.size);
-        System.out.println(ll.itrSearch(2));
-        System.out.println(ll.itrSearch(99));
 
 
 
