@@ -135,8 +135,28 @@ public class linkedlist {
     public int recSearch(int key){
         return helper(head,key);
     }
+    public int recSearch(int key){
+        return helper(head,key);
+    }
 
-    //  Q --> Find and remove Nth node from end
+//  Q --> Reverse the linked list (Iterative Approach)
+
+//     REMEMBER LIKE THIS WE HAVE   -->  3 - VARIABLE
+//                                  -->  4 - STEPS
+    public void reverse(){
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
+//  Q --> Find and remove Nth node from end
     public void deleteNthNodefromend(int n) {
 //        calculate size
         int sz = 0;
@@ -161,19 +181,61 @@ public class linkedlist {
         return;
     }
 
+    //  Q --> Check if a ll is palindrome or not
+    public Node findMid(Node head){   // helper
+        //    SLOW-FAST approach to find the mid
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;        //   +1
+            fast = fast.next.next;   //   +2
+        }
+        return slow;
+    }
+    public boolean checkPalindrome(){
+//      base case
+        if (head == null || head.next == null){
+            return true;
+        }
+//      step 1 - find mid
+        Node midNode = findMid(head);
+//      step 2 - reverse 2nd half
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev;
+        Node left = head;
+//      step 3 - check left and right half wheather they are equal or not
+        while (right != null){
+            if (left.data != right.data){
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
     public static void main (String args[]){
-        public static void main (String args[]){
-            linkedlist ll = new linkedlist();
-            ll.addFirst(2);
-            ll.addFirst(1);
-            ll.addLast(4);
-            ll.addLast(5);
-            ll.add(2,3);
-            ll.print();
-            ll.deleteNthNodefromend(3);
-            ll.print();
+        linkedlist ll = new linkedlist();
+        /*ll.print();*/
+        ll.addFirst(1);
+        ll.addFirst(2);
+        ll.addFirst(2);
+        ll.addFirst(1);
 
+//            ll.addLast(5);
+//            ll.add(2,3);
+        ll.print();
+//            ll.deleteNthNodefromend(3);
+//        ll.reverse();
+        System.out.println(ll.checkPalindrome());
 
-
+    }
         }
     }
