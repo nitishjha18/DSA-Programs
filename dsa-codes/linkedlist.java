@@ -221,21 +221,28 @@ public class linkedlist {
         }
         return true;
     }
-    public static void main (String args[]){
-        linkedlist ll = new linkedlist();
-        /*ll.print();*/
-        ll.addFirst(1);
-        ll.addFirst(2);
-        ll.addFirst(2);
-        ll.addFirst(1);
 
-//            ll.addLast(5);
-//            ll.add(2,3);
-        ll.print();
-//            ll.deleteNthNodefromend(3);
-//        ll.reverse();
-        System.out.println(ll.checkPalindrome());
-
-    }
+    public static boolean isCycle(){
+        Node fast = head;
+        Node slow = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;  // +1
+            fast = fast.next.next;
+            if (slow == fast){
+                return true;   // cycle exist
+            }
         }
+        return false;          // cycle doesn't exist
     }
+
+    public static void main (String args[]){
+        head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = head;
+//      1->2->3->1
+        System.out.println(isCycle());
+
+    }
+
+}
